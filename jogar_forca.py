@@ -1,8 +1,10 @@
 import numpy as np
+from tratamento_palavra import Palavra_Tratada
+palavra_tratada = Palavra_Tratada()
 
 class Forca:
     def __init__(self):
-        self._palavra_secreta = None
+        self._palavra_secreta = palavra_tratada.tira_acentos()
         self.chute = None
         self.enforcou = False
         self.acertou = False 
@@ -15,14 +17,7 @@ class Forca:
         self.palavra = None
         self.letras_chutadas = []
 
-    def busca_palavra(self):
-        with open('/home/rhuan/EstudoPython/Alura/palavras.csv', 'r') as arquivo:
-            self.reader = np.array(arquivo.readline().split(","))
-            self.palavra = np.random.choice(self.reader)
-        return self.palavra
-
     def verifica_palavra(self):
-        self._palavra_secreta = self.busca_palavra()
         self.letras_acertadas = self.inicializa_letras_acertadas()
         self.count = len(self._palavra_secreta)
         self.forca()
@@ -56,6 +51,7 @@ class Forca:
                     if (self.count == 0):
                         self.imprime_mensagem_vencedor()
                         self.acertou = self.acertar()
+                        break
 
                 if (self._palavra_secreta.find(self.chute) == -1):
                     if (self.tentativas < 7):

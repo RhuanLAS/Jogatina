@@ -8,9 +8,8 @@ class Termo:
         self.palavra_chutadas = []
         self.tentativas = 6
         self.acertou = False
-        self.count = 0
-        self.letras_acertadas = None
-        self.posicao = 0
+        self.letras_acertadas = self.inicializa_palavra()
+        self.posicao = None
         
     def inicializa_palavra(self):
         return ["_" for letra in self._palavra_do_dia]
@@ -18,9 +17,6 @@ class Termo:
     def pede_chute(self):
         self.chute = str(input("Qual palavra deseja chutar? "))
         return self.chute.strip()
-
-    def inicializa_palavra(self):
-        return ["_" for letra in self._palavra_do_dia]
     
     def print_colorido(self):
         self.posicao = 0
@@ -41,10 +37,8 @@ class Termo:
         return f'\033[38;2;{r};{g};{b}m{text} \033[38;2;255;255;255m'
 
     def termo(self):
-        self.letras_acertadas = self.inicializa_palavra()
         print(self.letras_acertadas)
         while(not self.acertou):
-            self.letras_acertadas = self.inicializa_palavra()
             self.chute = self.pede_chute()
             if(self.chute in self.palavra_chutadas):
                 print(f'A palavra {self.chute} já foi chutada, escolha outra!')
@@ -54,7 +48,6 @@ class Termo:
                     self.imprime_mensagem_vencedor()
                     break
                 else:
-                    self.count = 0
                     self.print_colorido()
                     self.tentativas -= 1
                     if(self.tentativas == 1):
