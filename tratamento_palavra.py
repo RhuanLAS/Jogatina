@@ -1,13 +1,14 @@
 import re
 import unicodedata
 import numpy as np
+from pathlib import Path
 
 class Palavra_Tratada:
     def __init__(self):
         self._texto = self.busca_palavra()
 
     def busca_palavra(self):
-        with open('/home/rhuan/EstudoPython/Alura/palavras.csv', 'r') as arquivo:
+        with open(Path(__file__).parent / "palavras.csv", 'r') as arquivo:
             self.reader = np.array(arquivo.readline().split(","))
             self.palavra = np.random.choice(self.reader)
         return self.palavra
