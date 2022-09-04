@@ -4,7 +4,7 @@ palavra_tratada = Palavra_Tratada()
 
 class Forca:
     def __init__(self):
-        self._palavra_secreta = palavra_tratada.tira_acentos()
+        self._palavra_secreta = palavra_tratada.busca_palavra()
         self.chute = None
         self.enforcou = False
         self.acertou = False 
@@ -19,11 +19,11 @@ class Forca:
 
     def verifica_palavra(self):
         self.letras_acertadas = self.inicializa_letras_acertadas()
-        self.count = len(self._palavra_secreta)
+        self.count = len(self._palavra_secreta[2:7])
         self.forca()
 
     def inicializa_letras_acertadas(self):
-        return ["_" for letra in self._palavra_secreta]
+        return ["_" for letra in self._palavra_secreta[2:7]]
 
     def pede_chute(self):
         self.chute = str(input("Qual letra deseja chutar? "))
@@ -42,7 +42,7 @@ class Forca:
             else:
                 self.letras_chutadas.append(self.chute)
                 self.local = 0
-                for i in self._palavra_secreta:
+                for i in self._palavra_secreta[2:7]:
                     if (self.chute.upper() == i.upper()):
                         self.letras_acertadas[self.local] = i
                         self.count -= 1
@@ -53,7 +53,7 @@ class Forca:
                         self.acertou = self.acertar()
                         break
 
-                if (self._palavra_secreta.find(self.chute) == -1):
+                if (not self.chute in self._palavra_secreta):
                     if (self.tentativas < 7):
                         print(f'A letra {self.chute.lower()} nao existe na palavra, voce ainda tem {7 - self.tentativas} tentativas')
                     if (self.tentativas == 7):
@@ -65,7 +65,7 @@ class Forca:
 
     def imprime_mensagem_perdedor(self):
         print("Puxa, você foi enforcado!")
-        print("A palavra era {}".format(self._palavra_secreta))
+        print("A palavra era {}".format(self._palavra_secreta[2:7]))
         print("    _______________         ")
         print("   /               \       ")
         print("  /                 \      ")

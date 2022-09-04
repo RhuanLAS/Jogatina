@@ -38,7 +38,6 @@ class Adivinhacao:
             elif (self.chute < self._n1):
                 print(f'O número {self.chute} está abaixo do número sorteado')
             else:
-
                 print(f'O número {self.chute} está acima do número sorteado')
             self.numero_tentativas -= 1
 
